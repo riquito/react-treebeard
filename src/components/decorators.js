@@ -6,7 +6,7 @@ import {VelocityComponent} from 'velocity-react';
 
 const Loading = (props) => {
     return (
-        <div style={props.style}>
+        <div style={props.style} className="treebeard-loading">
             loading...
         </div>
     );
@@ -23,7 +23,7 @@ const Toggle = (props) => {
     let midHeight = height * 0.5;
     let points = `0,0 0,${height} ${width},${midHeight}`;
     return (
-        <div style={style.base}>
+        <div style={style.base} className="treebeard-toggle">
             <div style={style.wrapper}>
                 <svg height={height} width={width}>
                     <polygon
@@ -43,7 +43,7 @@ Toggle.propTypes = {
 const Header = (props) => {
     const style = props.style;
     return (
-        <div style={style.base}>
+        <div style={style.base} className="treebeard-header">
             <div style={style.title}>
                 {props.node.name}
             </div>
@@ -66,6 +66,7 @@ class Container extends React.Component {
         return (
             <div
                 ref="clickable"
+                className="treebeard-container"
                 onClick={onClick}
                 style={style.container}>
                 { !terminal ? this.renderToggle() : null }
