@@ -13,11 +13,18 @@ const Loading = (props) => {
 };
 
 Loading.propTypes = {
-    style: React.PropTypes.object
+    style: React.PropTypes.object.isRequired
 };
 
 const Toggle = (props) => {
-    const style = props.style;
+    const style = Object.assign({}, {
+        base: {},
+        wrapper: {},
+        arrow: {},
+        height: 14,
+        width: 14
+    }, props.style);
+
     const height = style.height;
     const width = style.width;
     let midHeight = height * 0.5;
@@ -37,7 +44,7 @@ const Toggle = (props) => {
 };
 
 Toggle.propTypes = {
-    style: React.PropTypes.object
+    style: React.PropTypes.object.isRequired
 };
 
 const Header = (props) => {
@@ -52,7 +59,7 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
-    style: React.PropTypes.object,
+    style: React.PropTypes.object.isRequired,
     node: React.PropTypes.object.isRequired
 };
 
@@ -62,7 +69,13 @@ class Container extends React.Component {
         super(props);
     }
     render(){
-        const {style, decorators, terminal, onClick, node} = this.props;
+        let {style, decorators, terminal, onClick, node} = this.props;
+
+        style = Object.assign({}, {
+            container: {},
+            header: {}
+        }, style);
+
         return (
             <div
                 ref="clickable"

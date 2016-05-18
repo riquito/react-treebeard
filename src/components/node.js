@@ -9,6 +9,17 @@ import NodeHeader from './header';
 class TreeNode extends React.Component {
     constructor(props){
         super(props);
+
+        this.style = Object.assign({}, {
+            base: {},
+            link: {},
+            activeLink: {},
+            toggle: {},
+            header: {},
+            subtree: {},
+            loading: {}
+        }, this.props.style);
+
         this.onClick = this.onClick.bind(this);
     }
     onClick(){
@@ -35,7 +46,7 @@ class TreeNode extends React.Component {
         const decorators = this.decorators();
         const animations = this.animations();
         return (
-            <li style={this.props.style.base} ref="topLevel" className="treebeard-treenode">
+            <li style={this.style.base} ref="topLevel" className="treebeard-treenode">
                 {this.renderHeader(decorators, animations)}
                 {this.renderDrawer(decorators, animations)}
             </li>
@@ -58,7 +69,7 @@ class TreeNode extends React.Component {
             <NodeHeader
                 decorators={decorators}
                 animations={animations}
-                style={this.props.style.header}
+                style={this.style.header}
                 node={Object.assign({}, this.props.node)}
                 onClick={this.onClick}
             />
@@ -67,7 +78,7 @@ class TreeNode extends React.Component {
     renderChildren(decorators){
         if(this.props.node.loading){ return this.renderLoading(decorators); }
         return (
-            <ul style={this.props.style.subtree} ref="subtree" className="treebeard-drawer">
+            <ul style={this.style.subtree} ref="subtree" className="treebeard-drawer">
                 {rutils.children.map(this.props.node.children, (child, index) =>
                     <TreeNode
                         {...this._eventBubbles()}
@@ -75,7 +86,7 @@ class TreeNode extends React.Component {
                         node={child}
                         decorators={this.props.decorators}
                         animations={this.props.animations}
-                        style={this.props.style}
+                        style={this.style}
                     />
                 )}
             </ul>
@@ -83,9 +94,9 @@ class TreeNode extends React.Component {
     }
     renderLoading(decorators){
         return (
-            <ul style={this.props.style.subtree} className="treebeard-loading-container">
+            <ul style={this.style.subtree} className="treebeard-loading-container">
                 <li>
-                    <decorators.Loading style={this.props.style.loading}/>
+                    <decorators.Loading style={this.style.loading}/>
                 </li>
             </ul>
         );

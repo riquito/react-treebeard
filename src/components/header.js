@@ -7,6 +7,12 @@ import deepEqual from 'deep-equal';
 class NodeHeader extends React.Component {
     constructor(props){
         super(props);
+
+        this.style = Object.assign({}, {
+            base: {},
+            connector: {},
+            title: {}
+        }, this.props.style);
     }
     shouldComponentUpdate(nextProps){
         const props = this.props;
@@ -24,7 +30,7 @@ class NodeHeader extends React.Component {
         const terminal = !this.props.node.children;
         const active = this.props.node.active;
         const container = [style.link, active ? style.activeLink : null];
-        const headerStyles = Object.assign({ container }, this.props.style);
+        const headerStyles = Object.assign({ container }, this.style);
         return (
             <decorators.Container
                 style={headerStyles}
