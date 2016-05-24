@@ -45,8 +45,9 @@ class TreeNode extends React.Component {
     render(){
         const decorators = this.decorators();
         const animations = this.animations();
+        const cssClasses = 'treebeard-treenode ' + (this.props.node.toggled ? 'open' : 'closed');
         return (
-            <li style={this.style.base} ref="topLevel" className="treebeard-treenode">
+            <li style={this.style.base} ref="topLevel" className={cssClasses}>
                 {this.renderHeader(decorators, animations)}
                 {this.renderDrawer(decorators, animations)}
             </li>
