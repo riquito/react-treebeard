@@ -31,6 +31,7 @@ class NodeHeader extends React.Component {
                 decorators={decorators}
                 terminal={terminal}
                 onClick={this.props.onClick}
+                onToggle={this.props.onToggle}
                 animations={this.props.animations}
                 node={this.props.node}
             />
@@ -46,7 +47,8 @@ NodeHeader.propTypes = {
         React.PropTypes.bool
     ]).isRequired,
     node: React.PropTypes.object.isRequired,
-    onClick: React.PropTypes.func
+    onClick: React.PropTypes.func,
+    onToggle: React.PropTypes.func
 };
 
 export default NodeHeader;

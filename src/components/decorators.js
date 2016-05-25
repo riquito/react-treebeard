@@ -23,7 +23,7 @@ const Toggle = (props) => {
     let midHeight = height * 0.5;
     let points = `0,0 0,${height} ${width},${midHeight}`;
     return (
-        <div style={style.base}>
+        <div style={style.base} onClick={props.onClick}>
             <div style={style.wrapper}>
                 <svg height={height} width={width}>
                     <polygon
@@ -37,13 +37,14 @@ const Toggle = (props) => {
 };
 
 Toggle.propTypes = {
-    style: React.PropTypes.object
+    style: React.PropTypes.object,
+    onClick: React.PropTypes.func.isRequired
 };
 
 const Header = (props) => {
     const style = props.style;
     return (
-        <div style={style.base}>
+        <div style={style.base} onClick={props.onClick}>
             <div style={style.title}>
                 {props.node.name}
             </div>
@@ -53,7 +54,8 @@ const Header = (props) => {
 
 Header.propTypes = {
     style: React.PropTypes.object,
-    node: React.PropTypes.object.isRequired
+    node: React.PropTypes.object.isRequired,
+    onClick: React.PropTypes.func.isRequired
 };
 
 @Radium
@@ -72,6 +74,7 @@ class Container extends React.Component {
                 <decorators.Header
                     node={node}
                     style={style.header}
+                    onClick={onClick}
                 />
             </div>
         );
@@ -89,7 +92,7 @@ class Container extends React.Component {
     }
     renderToggleDecorator(){
         const {style, decorators} = this.props;
-        return (<decorators.Toggle style={style.toggle}/>);
+        return (<decorators.Toggle style={style.toggle} onClick={this.props.onToggle} />);
     }
 }
 
@@ -98,6 +101,7 @@ Container.propTypes = {
     decorators: React.PropTypes.object.isRequired,
     terminal: React.PropTypes.bool.isRequired,
     onClick: React.PropTypes.func.isRequired,
+    onToggle: React.PropTypes.func.isRequired,
     animations: React.PropTypes.oneOfType([
         React.PropTypes.object,
         React.PropTypes.bool
