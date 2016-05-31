@@ -44,6 +44,7 @@ const Toggle = (props) => {
 };
 
 Toggle.propTypes = {
+    node: React.PropTypes.object.isRequired,
     style: React.PropTypes.object.isRequired,
     onClick: React.PropTypes.func.isRequired
 };
@@ -105,7 +106,7 @@ class Container extends React.Component {
     }
     renderToggleDecorator(){
         const {style, decorators} = this.props;
-        return (<decorators.Toggle style={style.toggle || {}} onClick={this.props.onToggle} />);
+        return (<decorators.Toggle style={style.toggle || {}} onClick={this.props.onToggle} node={this.props.node} />);
     }
 }
 
