@@ -51,8 +51,12 @@ Toggle.propTypes = {
 
 const Header = (props) => {
     const style = props.style;
+    let classes = ['treebeard-header'];
+    if (props.node.active) {
+        classes.push('treebeard-active');
+    }
     return (
-        <div style={style.base} className="treebeard-header" onClick={props.onClick}>
+        <div style={style.base} className={classes.join(' ')} onClick={props.onClick}>
             <div style={style.title}>
                 {props.node.name}
             </div>
