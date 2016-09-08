@@ -12,7 +12,6 @@ const factory = require('../utils/factory');
 const defaults = {
     style: {},
     node: { chilren: [] },
-    animations: factory.createAnimations(),
     decorators: factory.createDecorators()
 };
 
@@ -57,39 +56,6 @@ describe('node component', () => {
             <TreeNode {...defaults}/>
         );
         (() => { treeNode.onClick(); }).should.not.throw(Error);
-    });
-
-    it('should use the node animations if defined', () => {
-        const nodeAnimations = {
-            toggle: sinon.stub().returns({ duration: 0, animation: 'fadeIn' }),
-            drawer: sinon.stub().returns({ duration: 0, animation: 'fadeIn' })
-        };
-        const node = { animations: nodeAnimations };
-        const treeNode = TestUtils.renderIntoDocument(
-            <TreeNode
-                {...defaults}
-                node={node}
-            />
-        );
-        treeNode.animations();
-        nodeAnimations.toggle.should.be.calledWith(treeNode.props);
-        nodeAnimations.drawer.should.be.calledWith(treeNode.props);
-    });
-
-    it('should fallback to the prop animations if the node animations are not defined', () => {
-        const animations = {
-            toggle: sinon.stub().returns({ duration: 0, animation: 'fadeIn' }),
-            drawer: sinon.stub().returns({ duration: 0, animation: 'fadeIn' })
-        };
-        const treeNode = TestUtils.renderIntoDocument(
-            <TreeNode
-                {...defaults}
-                animations={animations}
-            />
-        );
-        treeNode.animations();
-        animations.toggle.should.be.calledWith(treeNode.props);
-        animations.drawer.should.be.calledWith(treeNode.props);
     });
 
     it('should use the node decorators if defined', () => {
@@ -153,76 +119,6 @@ describe('node component', () => {
             <TreeNode {...defaults} node={node}/>
         );
         global.should.not.exist(treeNode.refs.subtree);
-    });
-
-    it('should wrap the children in a velocity transition group', () => {
-        const TransitionGroup = require('velocity-react').VelocityTransitionGroup;
-        const treeNode = TestUtils.renderIntoDocument(
-            <TreeNode {...defaults}/>
-        );
-        const component = TestUtils.findRenderedComponentWithType(treeNode, TransitionGroup);
-        component.should.exist;
-    });
-
-    it('should pass velocity the drawer enter animation and duration props', () => {
-        const animations = factory.createAnimations();
-        const treeNode = TestUtils.renderIntoDocument(
-            <TreeNode {...defaults}
-                animations={animations}
-            />
-        );
-        const velocity = treeNode.refs.velocity;
-        const drawer = animations.drawer();
-        velocity.props.enter.animation.should.equal(drawer.enter.animation);
-        velocity.props.enter.duration.should.equal(drawer.enter.duration);
-    });
-
-    it('should pass velocity the drawer leave animation and duration props', () => {
-        const animations = factory.createAnimations();
-        const treeNode = TestUtils.renderIntoDocument(
-            <TreeNode {...defaults}
-                animations={animations}
-            />
-        );
-        const velocity = treeNode.refs.velocity;
-        const drawer = animations.drawer();
-        velocity.props.leave.animation.should.equal(drawer.leave.animation);
-        velocity.props.leave.duration.should.equal(drawer.leave.duration);
-    });
-
-    it('should not render a velocity component if animations is false and not toggled', () => {
-        const node = { toggled: false };
-        const treeNode = TestUtils.renderIntoDocument(
-            <TreeNode {...defaults}
-                animations={false}
-                node={node}
-            />
-        );
-        const velocity = treeNode.refs.velocity;
-        global.should.not.exist(velocity);
-    });
-
-    it('should not render a velocity component if animations is false and toggled', () => {
-        const node = { toggled: true };
-        const treeNode = TestUtils.renderIntoDocument(
-            <TreeNode {...defaults}
-                animations={false}
-                node={node}
-            />
-        );
-        const velocity = treeNode.refs.velocity;
-        global.should.not.exist(velocity);
-    });
-
-    it('should render a velocity component if animations is an object', () => {
-        const animations = factory.createAnimations();
-        const treeNode = TestUtils.renderIntoDocument(
-            <TreeNode {...defaults}
-                animations={animations}
-            />
-        );
-        const velocity = treeNode.refs.velocity;
-        velocity.should.exist;
     });
 
     it('should wrap the children in a list', () => {

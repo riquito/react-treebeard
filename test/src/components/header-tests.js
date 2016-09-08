@@ -12,7 +12,6 @@ const ContainerType = React.createClass({ render: () => <div/> });
 const defaults = {
     style: {},
     node: { children: [] },
-    animations: { toggle: {} },
     decorators: factory.createDecorators({ container: ContainerType })
 };
 
@@ -45,30 +44,6 @@ describe('header component', () => {
         );
         const nextProps = Object.assign({}, defaults, { node: { toggled: node.toggled } });
         header.shouldComponentUpdate(nextProps).should.be.false;
-    });
-
-    it('should not update when deep nested animation props have not changed value', () => {
-        const animations = { nested: { prop: 'value' } };
-        const header = TestUtils.renderIntoDocument(
-            <Header {...defaults}
-                animations={animations}
-            />
-        );
-        const sameAnimationProp = { animations: { nested: { prop: animations.nested.prop } } };
-        const nextProps = Object.assign({}, defaults, sameAnimationProp);
-        header.shouldComponentUpdate(nextProps).should.be.false;
-    });
-
-    it('should update when deep nested animation props have changed value', () => {
-        const animations = { nested: { prop: 'value' } };
-        const header = TestUtils.renderIntoDocument(
-            <Header {...defaults}
-                animations={animations}
-            />
-        );
-        const diffAnimationProp = { animations: { nested: { prop: 'new-value' } } };
-        const nextProps = Object.assign({}, defaults, diffAnimationProp);
-        header.shouldComponentUpdate(nextProps).should.be.true;
     });
 
     it('should pass a true terminal prop to the container when there are no children in the node', () => {

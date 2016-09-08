@@ -5,14 +5,12 @@
 const sinon = require('sinon');
 const React = require('react');
 const TestUtils = require('react-addons-test-utils');
-const VelocityComponent = require('velocity-react').VelocityComponent;
 const defaultDecorators = require('../../../src/components/decorators');
 const factory = require('../utils/factory');
 
 const defaults = {
     style: {},
     node: { children: [] },
-    animations: { toggle: {} },
     terminal: false,
     decorators: factory.createDecorators(),
     onClick: function(){}
@@ -71,47 +69,6 @@ describe('container decorator component', () => {
         );
         const toggle = TestUtils.findRenderedComponentWithType(container, toggleType);
         toggle.props.style.should.equal(style.toggle);
-    });
-
-    it('should render the toggle decorator in a velocity component', () => {
-        const container = TestUtils.renderIntoDocument(
-            <Container {...defaults}/>
-        );
-        const component = TestUtils.findRenderedComponentWithType(container, VelocityComponent);
-        component.should.exist;
-    });
-
-    it('should not render a velocity component if animations is false', () => {
-        const container = TestUtils.renderIntoDocument(
-            <Container {...defaults}
-                animations={false}
-            />
-        );
-        const velocity = container.refs.velocity;
-        global.should.not.exist(velocity);
-    });
-
-    it('should render a velocity component if animations is an object', () => {
-        const animations = factory.createAnimations();
-        const container = TestUtils.renderIntoDocument(
-            <Container {...defaults}
-                animations={animations}
-            />
-        );
-        const velocity = container.refs.velocity;
-        velocity.should.exist;
-    });
-
-    it('should pass velocity the toggle animation and duration props', () => {
-        const animations = { toggle: { duration: 1, animation: 'slideUp' } };
-        const container = TestUtils.renderIntoDocument(
-            <Container {...defaults}
-                animations={animations}
-            />
-        );
-        const velocity = container.refs.velocity;
-        velocity.props.duration.should.equal(animations.toggle.duration);
-        velocity.props.animation.should.equal(animations.toggle.animation);
     });
 
     it('should render the header decorator', () => {

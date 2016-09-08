@@ -51,15 +51,6 @@ describe('treebeard component', () => {
         node.props.style.should.equal(defaultTheme.tree.node);
     });
 
-    it('should use the default animations if none specified', () => {
-        const treebeard = TestUtils.renderIntoDocument(
-            <Treebeard data={defaults}/>
-        );
-        const node = TestUtils.findRenderedComponentWithType(treebeard, TreeNode);
-        const defaultAnimations = require('../../../src/themes/animations');
-        node.props.animations.should.equal(defaultAnimations);
-    });
-
     it('should use the default decorators if none specified', () => {
         const treebeard = TestUtils.renderIntoDocument(
             <Treebeard data={defaults}/>
