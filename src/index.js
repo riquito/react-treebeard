@@ -1,6 +1,5 @@
 'use strict';
 module.exports = {
-    Treebeard: require('./components/treebeard'),
-    decorators: require('./components/decorators'),
-    theme: require('./themes/default')
+    Treebeard: require('./components/treebeard').default,
+    decorators: require('./components/decorators').default
 };

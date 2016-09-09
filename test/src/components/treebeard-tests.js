@@ -42,15 +42,6 @@ describe('treebeard component', () => {
         node.props.onToggle.should.equal(treebeard.props.onToggle);
     });
 
-    it('should use the default theme if none specified', () => {
-        const treebeard = TestUtils.renderIntoDocument(
-            <Treebeard data={defaults}/>
-        );
-        const node = TestUtils.findRenderedComponentWithType(treebeard, TreeNode);
-        const defaultTheme = require('../../../src/themes/default').default;
-        node.props.style.should.equal(defaultTheme.tree.node);
-    });
-
     it('should use the default decorators if none specified', () => {
         const treebeard = TestUtils.renderIntoDocument(
             <Treebeard data={defaults}/>

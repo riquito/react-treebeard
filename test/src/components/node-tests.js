@@ -10,7 +10,6 @@ const TreeNode = require('../../../src/components/node').default;
 const factory = require('../utils/factory');
 
 const defaults = {
-    style: {},
     node: { chilren: [] },
     decorators: factory.createDecorators()
 };

@@ -4,15 +4,6 @@ import React from 'react';
 import shallowEqual from 'shallowequal';
 
 class NodeHeader extends React.Component {
-    constructor(props){
-        super(props);
-
-        this.style = Object.assign({}, {
-            base: {},
-            connector: {},
-            title: {}
-        }, this.props.style);
-    }
     shouldComponentUpdate(nextProps){
         const props = this.props;
         const nextPropKeys = Object.keys(nextProps);
@@ -24,14 +15,10 @@ class NodeHeader extends React.Component {
         return false;
     }
     render(){
-        const {style, decorators} = this.props;
+        const {decorators} = this.props;
         const terminal = !this.props.node.children;
-        const active = this.props.node.active;
-        const container = [style.link, active ? style.activeLink : null];
-        const headerStyles = Object.assign({ container }, this.style);
         return (
             <decorators.Container
-                style={headerStyles}
                 decorators={decorators}
                 terminal={terminal}
                 onClick={this.props.onClick}
@@ -43,7 +30,6 @@ class NodeHeader extends React.Component {
 }
 
 NodeHeader.propTypes = {
-    style: React.PropTypes.object.isRequired,
     decorators: React.PropTypes.object.isRequired,
     node: React.PropTypes.object.isRequired,
     onClick: React.PropTypes.func,

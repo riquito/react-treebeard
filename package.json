@@ -75,7 +75,6 @@
     "webpack-dev-server": "^1.12.1"
   },
   "dependencies": {
-    "radium": "^0.16.6",
     "shallowequal": "^0.2.2"
   }
 }

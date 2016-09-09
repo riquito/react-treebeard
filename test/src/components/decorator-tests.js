@@ -9,7 +9,6 @@ const defaultDecorators = require('../../../src/components/decorators').default;
 const factory = require('../utils/factory');
 
 const defaults = {
-    style: {},
     node: { children: [] },
     terminal: false,
     decorators: factory.createDecorators(),
@@ -45,20 +44,6 @@ describe('container decorator component', () => {
         toggle.should.be.empty;
     });
 
-    it('should pass the style to the toggle decorator', () => {
-        const style = { toggle: { color: 'red' } };
-        const toggleType = React.createClass({ render: () => <div/> });
-        const decorators = factory.createDecorators({ toggle: toggleType });
-        const container = TestUtils.renderIntoDocument(
-            <Container {...defaults}
-                decorators={decorators}
-                style={style}
-            />
-        );
-        const toggle = TestUtils.findRenderedComponentWithType(container, toggleType);
-        toggle.props.style.should.equal(style.toggle);
-    });
-
     it('should render the header decorator', () => {
         const headType = React.createClass({ render: () => <div/> });
         const decorators = factory.createDecorators({ header: headType });
@@ -71,8 +56,7 @@ describe('container decorator component', () => {
         head.should.exist;
     });
 
-    it('should pass the node and style to the header decorator', () => {
-        const style = { header: { color: 'red' } };
+    it('should pass the node to the header decorator', () => {
         const node = { name: 'terminal-node' };
         const headType = React.createClass({ render: () => <div/> });
         const decorators = factory.createDecorators({ header: headType });
@@ -80,11 +64,9 @@ describe('container decorator component', () => {
             <Container {...defaults}
                 decorators={decorators}
                 node={node}
-                style={style}
             />
         );
         const head = TestUtils.findRenderedComponentWithType(container, headType);
-        head.props.style.should.equal(style.header);
         head.props.node.should.equal(node);
     });
 });

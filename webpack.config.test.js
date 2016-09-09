@@ -6,11 +6,10 @@ module.exports = {
         loaders: [{
             test: /\.js$/,
             exclude: [/node_modules/],
-            loader: ['babel'],
+            loaders: ['babel'],
             cacheDirectory: true,
             query: {
                 presets: ["es2015", "stage-2", "react"],
-                plugins: ['transform-decorators-legacy' ],
             },
         }],
         postLoaders: [{
