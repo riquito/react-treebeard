@@ -32,7 +32,11 @@ module.exports = {
         loaders: [{
             test: /\.js$/,
             exclude: [/node_modules/],
-            loaders: ['react-hot', 'babel-loader']
+            loaders: ['react-hot', 'babel'],
+            query: {
+                "presets": ["es2015", "stage-2", "react"]
+            },
+            plugins: ['transform-decorators-legacy' ],
         }]
     },
     plugins: [

@@ -5,7 +5,7 @@
 const sinon = require('sinon');
 const React = require('react');
 const TestUtils = require('react-addons-test-utils');
-const defaultDecorators = require('../../../src/components/decorators');
+const defaultDecorators = require('../../../src/components/decorators').default;
 const factory = require('../utils/factory');
 
 const defaults = {

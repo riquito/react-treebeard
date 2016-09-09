@@ -4,7 +4,7 @@
 
 const React = require('react');
 const TestUtils = require('react-addons-test-utils');
-const Header = require('../../../src/components/header');
+const Header = require('../../../src/components/header').default;
 const factory = require('../utils/factory');
 
 const ContainerType = React.createClass({ render: () => <div/> });

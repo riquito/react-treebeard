@@ -6,7 +6,7 @@ const sinon = require('sinon');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
-const TreeNode = require('../../../src/components/node');
+const TreeNode = require('../../../src/components/node').default;
 const factory = require('../utils/factory');
 
 const defaults = {
@@ -98,7 +98,7 @@ describe('node component', () => {
     });
 
     it('should render the NodeHeader component', () => {
-        const NodeHeader = require('../../../src/components/header');
+        const NodeHeader = require('../../../src/components/header').default;
         const treeNode = TestUtils.renderIntoDocument(
             <TreeNode {...defaults}/>
         );
