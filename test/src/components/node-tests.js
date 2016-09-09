@@ -23,7 +23,7 @@ describe('node component', () => {
         global.should.not.exist(treeNode.state);
     });
 
-    it('should invert the toggle state on click', (done) => {
+    it('should invert the toggle state on toggle', (done) => {
         const node = { toggled: true };
         const onToggle = function(toggledNode, toggled){
             toggled.should.equal(!toggledNode.toggled);
@@ -36,10 +36,10 @@ describe('node component', () => {
                 onToggle={onToggle}
             />
         );
-        treeNode.onClick();
+        treeNode.onToggle();
     });
 
-    it('should call the onToggle callback once if it is registered on click', () => {
+    it('should call the onToggle callback once if it is registered on toggle', () => {
         const onToggle = sinon.spy();
         const treeNode = TestUtils.renderIntoDocument(
             <TreeNode
@@ -47,7 +47,7 @@ describe('node component', () => {
                 onToggle={onToggle}
             />
         );
-        treeNode.onClick();
+        treeNode.onToggle();
         onToggle.should.be.called.once;
     });
 
