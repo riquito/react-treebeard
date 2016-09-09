@@ -2,28 +2,34 @@
 
 import React from 'react';
 import Radium from 'radium';
-import {VelocityComponent} from 'velocity-react';
 
 const Loading = (props) => {
     return (
-        <div style={props.style}>
+        <div style={props.style} className="treebeard-loading">
             loading...
         </div>
     );
 };
 
 Loading.propTypes = {
-    style: React.PropTypes.object
+    style: React.PropTypes.object.isRequired
 };
 
 const Toggle = (props) => {
-    const style = props.style;
+    const style = Object.assign({}, {
+        base: {},
+        wrapper: {},
+        arrow: {},
+        height: 14,
+        width: 14
+    }, props.style);
+
     const height = style.height;
     const width = style.width;
     let midHeight = height * 0.5;
     let points = `0,0 0,${height} ${width},${midHeight}`;
     return (
-        <div style={style.base}>
+        <div style={style.base} className="treebeard-toggle" onClick={props.onClick}>
             <div style={style.wrapper}>
                 <svg height={height} width={width}>
                     <polygon
@@ -37,13 +43,19 @@ const Toggle = (props) => {
 };
 
 Toggle.propTypes = {
-    style: React.PropTypes.object
+    node: React.PropTypes.object.isRequired,
+    style: React.PropTypes.object.isRequired,
+    onClick: React.PropTypes.func.isRequired
 };
 
 const Header = (props) => {
     const style = props.style;
+    let classes = ['treebeard-header'];
+    if (props.node.active) {
+        classes.push('treebeard-active');
+    }
     return (
-        <div style={style.base}>
+        <div style={style.base} className={classes.join(' ')} onClick={props.onClick}>
             <div style={style.title}>
                 {props.node.name}
             </div>
@@ -52,8 +64,9 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
-    style: React.PropTypes.object,
-    node: React.PropTypes.object.isRequired
+    style: React.PropTypes.object.isRequired,
+    node: React.PropTypes.object.isRequired,
+    onClick: React.PropTypes.func.isRequired
 };
 
 @Radium
@@ -62,34 +75,30 @@ class Container extends React.Component {
         super(props);
     }
     render(){
-        const {style, decorators, terminal, onClick, node} = this.props;
+        let {style, decorators, terminal, onClick, node} = this.props;
+
+        style = Object.assign({}, {
+            container: {},
+            header: {}
+        }, style);
+
         return (
             <div
                 ref="clickable"
-                onClick={onClick}
+                className="treebeard-container"
                 style={style.container}>
-                { !terminal ? this.renderToggle() : null }
+                { !terminal ? this.renderToggleDecorator() : null }
                 <decorators.Header
                     node={node}
                     style={style.header}
+                    onClick={onClick}
                 />
             </div>
         );
     }
-    renderToggle(){
-        const animations = this.props.animations;
-        if(!animations){ return this.renderToggleDecorator(); }
-        return (
-            <VelocityComponent ref="velocity"
-                duration={animations.toggle.duration}
-                animation={animations.toggle.animation}>
-                {this.renderToggleDecorator()}
-            </VelocityComponent>
-        );
-    }
     renderToggleDecorator(){
         const {style, decorators} = this.props;
-        return (<decorators.Toggle style={style.toggle}/>);
+        return (<decorators.Toggle style={style.toggle || {}} onClick={this.props.onToggle} node={this.props.node} />);
     }
 }
 
@@ -98,10 +107,7 @@ Container.propTypes = {
     decorators: React.PropTypes.object.isRequired,
     terminal: React.PropTypes.bool.isRequired,
     onClick: React.PropTypes.func.isRequired,
-    animations: React.PropTypes.oneOfType([
-        React.PropTypes.object,
-        React.PropTypes.bool
-    ]).isRequired,
+    onToggle: React.PropTypes.func.isRequired,
     node: React.PropTypes.object.isRequired
 };
 

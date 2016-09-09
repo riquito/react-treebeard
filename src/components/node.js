@@ -1,29 +1,34 @@
 'use strict';
 
 import React from 'react';
-import rutils from 'react-utils';
-import {VelocityTransitionGroup} from 'velocity-react';
 
 import NodeHeader from './header';
 
 class TreeNode extends React.Component {
     constructor(props){
         super(props);
+
+        this.style = Object.assign({}, {
+            base: {},
+            link: {},
+            activeLink: {},
+            toggle: {},
+            header: {},
+            subtree: {},
+            loading: {}
+        }, this.props.style);
+
+        this.onToggle = this.onToggle.bind(this);
         this.onClick = this.onClick.bind(this);
     }
     onClick(){
+        let onClick = this.props.onClick;
+        if(onClick){ onClick(this.props.node); }
+    }
+    onToggle(){
         let toggled = !this.props.node.toggled;
         let onToggle = this.props.onToggle;
         if(onToggle){ onToggle(this.props.node, toggled); }
-    }
-    animations(){
-        const props = this.props;
-        if(props.animations === false){ return false; }
-        let anim = Object.assign({}, props.animations, props.node.animations);
-        return {
-            toggle: anim.toggle(this.props),
-            drawer: anim.drawer(this.props)
-        };
     }
     decorators(){
         // Merge Any Node Based Decorators Into The Pack
@@ -33,49 +38,42 @@ class TreeNode extends React.Component {
     }
     render(){
         const decorators = this.decorators();
-        const animations = this.animations();
+        const cssClasses = 'treebeard-treenode ' + (this.props.node.toggled ? 'open' : 'closed');
         return (
-            <li style={this.props.style.base} ref="topLevel">
-                {this.renderHeader(decorators, animations)}
-                {this.renderDrawer(decorators, animations)}
+            <li style={this.style.base} ref="topLevel" className={cssClasses}>
+                {this.renderHeader(decorators)}
+                {this.renderDrawer(decorators)}
             </li>
         );
     }
-    renderDrawer(decorators, animations){
+    renderDrawer(decorators){
         const toggled = this.props.node.toggled;
-        if(!animations && !toggled){ return null; }
-        if(!animations && toggled){
-            return this.renderChildren(decorators, animations);
+        if (toggled) {
+            return this.renderChildren(decorators);
         }
-        return (
-            <VelocityTransitionGroup {...animations.drawer} ref="velocity">
-                {toggled ? this.renderChildren(decorators, animations) : null}
-            </VelocityTransitionGroup>
-        );
     }
-    renderHeader(decorators, animations){
+    renderHeader(decorators){
         return (
             <NodeHeader
                 decorators={decorators}
-                animations={animations}
-                style={this.props.style}
+                style={this.style.header}
                 node={Object.assign({}, this.props.node)}
                 onClick={this.onClick}
+                onToggle={this.onToggle}
             />
         );
     }
     renderChildren(decorators){
         if(this.props.node.loading){ return this.renderLoading(decorators); }
         return (
-            <ul style={this.props.style.subtree} ref="subtree">
-                {rutils.children.map(this.props.node.children, (child, index) =>
+            <ul style={this.style.subtree} ref="subtree" className="treebeard-drawer">
+                {(this.props.node.children || []).map( (child, index) =>
                     <TreeNode
                         {...this._eventBubbles()}
                         key={child.id || index}
                         node={child}
                         decorators={this.props.decorators}
-                        animations={this.props.animations}
-                        style={this.props.style}
+                        style={this.style}
                     />
                 )}
             </ul>
@@ -83,15 +81,18 @@ class TreeNode extends React.Component {
     }
     renderLoading(decorators){
         return (
-            <ul style={this.props.style.subtree}>
+            <ul style={this.style.subtree} className="treebeard-loading-container">
                 <li>
-                    <decorators.Loading style={this.props.style.loading}/>
+                    <decorators.Loading style={this.style.loading}/>
                 </li>
             </ul>
         );
     }
     _eventBubbles(){
-        return { onToggle: this.props.onToggle };
+        return {
+            onClick: this.props.onClick,
+            onToggle: this.props.onToggle
+        };
     }
 }
 
@@ -99,11 +100,8 @@ TreeNode.propTypes = {
     style: React.PropTypes.object.isRequired,
     node: React.PropTypes.object.isRequired,
     decorators: React.PropTypes.object.isRequired,
-    animations: React.PropTypes.oneOfType([
-        React.PropTypes.object,
-        React.PropTypes.bool
-    ]).isRequired,
-    onToggle: React.PropTypes.func
+    onToggle: React.PropTypes.func,
+    onClick: React.PropTypes.func
 };
 
 export default TreeNode;

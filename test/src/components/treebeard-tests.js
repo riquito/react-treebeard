@@ -5,8 +5,8 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
-const TreeNode = require('../../../src/components/node');
-const Treebeard = require('../../../src/components/treebeard');
+const TreeNode = require('../../../src/components/node').default;
+const Treebeard = require('../../../src/components/treebeard').default;
 
 const defaults = {
     name: '',
@@ -47,17 +47,8 @@ describe('treebeard component', () => {
             <Treebeard data={defaults}/>
         );
         const node = TestUtils.findRenderedComponentWithType(treebeard, TreeNode);
-        const defaultTheme = require('../../../src/themes/default');
+        const defaultTheme = require('../../../src/themes/default').default;
         node.props.style.should.equal(defaultTheme.tree.node);
-    });
-
-    it('should use the default animations if none specified', () => {
-        const treebeard = TestUtils.renderIntoDocument(
-            <Treebeard data={defaults}/>
-        );
-        const node = TestUtils.findRenderedComponentWithType(treebeard, TreeNode);
-        const defaultAnimations = require('../../../src/themes/animations');
-        node.props.animations.should.equal(defaultAnimations);
     });
 
     it('should use the default decorators if none specified', () => {
@@ -65,7 +56,7 @@ describe('treebeard component', () => {
             <Treebeard data={defaults}/>
         );
         const node = TestUtils.findRenderedComponentWithType(treebeard, TreeNode);
-        const defaultDecorators = require('../../../src/components/decorators');
+        const defaultDecorators = require('../../../src/components/decorators').default;
         node.props.decorators.should.equal(defaultDecorators);
     });
 
