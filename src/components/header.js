@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import shallowEqual from 'shallowequal';
 
 class NodeHeader extends React.Component {
@@ -43,11 +44,11 @@ class NodeHeader extends React.Component {
 }
 
 NodeHeader.propTypes = {
-    style: React.PropTypes.object.isRequired,
-    decorators: React.PropTypes.object.isRequired,
-    node: React.PropTypes.object.isRequired,
-    onClick: React.PropTypes.func,
-    onToggle: React.PropTypes.func
+    style: PropTypes.object.isRequired,
+    decorators: PropTypes.object.isRequired,
+    node: PropTypes.object.isRequired,
+    onClick: PropTypes.func,
+    onToggle: PropTypes.func
 };
 
 export default NodeHeader;

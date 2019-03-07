@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import TreeNode from './node';
 import defaultDecorators from './decorators';
@@ -41,14 +42,14 @@ class TreeBeard extends React.Component {
 }
 
 TreeBeard.propTypes = {
-    style: React.PropTypes.object.isRequired,
-    data: React.PropTypes.oneOfType([
-        React.PropTypes.object,
-        React.PropTypes.array
+    style: PropTypes.object.isRequired,
+    data: PropTypes.oneOfType([
+        PropTypes.object,
+        PropTypes.array
     ]).isRequired,
-    onClick: React.PropTypes.func,
-    onToggle: React.PropTypes.func,
-    decorators: React.PropTypes.object
+    onClick: PropTypes.func,
+    onToggle: PropTypes.func,
+    decorators: PropTypes.object
 };
 
 TreeBeard.defaultProps = {

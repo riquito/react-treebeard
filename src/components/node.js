@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import NodeHeader from './header';
 
@@ -97,11 +98,11 @@ class TreeNode extends React.Component {
 }
 
 TreeNode.propTypes = {
-    style: React.PropTypes.object.isRequired,
-    node: React.PropTypes.object.isRequired,
-    decorators: React.PropTypes.object.isRequired,
-    onToggle: React.PropTypes.func,
-    onClick: React.PropTypes.func
+    style: PropTypes.object.isRequired,
+    node: PropTypes.object.isRequired,
+    decorators: PropTypes.object.isRequired,
+    onToggle: PropTypes.func,
+    onClick: PropTypes.func
 };
 
 export default TreeNode;

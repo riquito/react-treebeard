@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 
 const Loading = (props) => {
@@ -12,7 +13,7 @@ const Loading = (props) => {
 };
 
 Loading.propTypes = {
-    style: React.PropTypes.object.isRequired
+    style: PropTypes.object.isRequired
 };
 
 const Toggle = (props) => {
@@ -43,9 +44,9 @@ const Toggle = (props) => {
 };
 
 Toggle.propTypes = {
-    node: React.PropTypes.object.isRequired,
-    style: React.PropTypes.object.isRequired,
-    onClick: React.PropTypes.func.isRequired
+    node: PropTypes.object.isRequired,
+    style: PropTypes.object.isRequired,
+    onClick: PropTypes.func.isRequired
 };
 
 const Header = (props) => {
@@ -102,12 +103,12 @@ class Container extends React.Component {
 }
 
 Container.propTypes = {
-    style: React.PropTypes.object.isRequired,
-    decorators: React.PropTypes.object.isRequired,
-    terminal: React.PropTypes.bool.isRequired,
-    onClick: React.PropTypes.func.isRequired,
-    onToggle: React.PropTypes.func.isRequired,
-    node: React.PropTypes.object.isRequired
+    style: PropTypes.object.isRequired,
+    decorators: PropTypes.object.isRequired,
+    terminal: PropTypes.bool.isRequired,
+    onClick: PropTypes.func.isRequired,
+    onToggle: PropTypes.func.isRequired,
+    node: PropTypes.object.isRequired
 };
 
 export default {
