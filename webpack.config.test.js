@@ -9,8 +9,7 @@ module.exports = {
             loader: ['babel'],
             cacheDirectory: true,
             query: {
-                presets: ["es2015", "stage-2", "react"],
-                plugins: ['transform-decorators-legacy' ],
+                presets: ['es2015', 'stage-2', 'react'],
             },
         }],
         postLoaders: [{

@@ -34,9 +34,8 @@ module.exports = {
             exclude: [/node_modules/],
             loaders: ['react-hot', 'babel'],
             query: {
-                "presets": ["es2015", "stage-2", "react"]
+                'presets': ['es2015', 'stage-2', 'react']
             },
-            plugins: ['transform-decorators-legacy' ],
         }]
     },
     plugins: [

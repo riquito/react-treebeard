@@ -64,12 +64,11 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
-    style: React.PropTypes.object.isRequired,
-    node: React.PropTypes.object.isRequired,
-    onClick: React.PropTypes.func.isRequired
+    style: PropTypes.object.isRequired,
+    node: PropTypes.object.isRequired,
+    onClick: PropTypes.func.isRequired
 };
 
-@Radium
 class Container extends React.Component {
     constructor(props){
         super(props);
@@ -115,5 +114,5 @@ export default {
     Loading,
     Toggle,
     Header,
-    Container
+    Container: Radium(Container),
 };
