@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Radium from 'radium';
-import {VelocityComponent} from 'velocity-react';
 
 const Loading = (props) => {
     return (
@@ -88,24 +87,13 @@ class Container extends React.Component {
                 ref="clickable"
                 className="treebeard-container"
                 style={style.container}>
-                { !terminal ? this.renderToggle() : null }
+                { !terminal ? this.renderToggleDecorator() : null }
                 <decorators.Header
                     node={node}
                     style={style.header}
                     onClick={onClick}
                 />
             </div>
-        );
-    }
-    renderToggle(){
-        const animations = this.props.animations;
-        if(!animations){ return this.renderToggleDecorator(); }
-        return (
-            <VelocityComponent ref="velocity"
-                duration={animations.toggle.duration}
-                animation={animations.toggle.animation}>
-                {this.renderToggleDecorator()}
-            </VelocityComponent>
         );
     }
     renderToggleDecorator(){
@@ -120,10 +108,6 @@ Container.propTypes = {
     terminal: React.PropTypes.bool.isRequired,
     onClick: React.PropTypes.func.isRequired,
     onToggle: React.PropTypes.func.isRequired,
-    animations: React.PropTypes.oneOfType([
-        React.PropTypes.object,
-        React.PropTypes.bool
-    ]).isRequired,
     node: React.PropTypes.object.isRequired
 };
 

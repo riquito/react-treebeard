@@ -5,7 +5,6 @@ import React from 'react';
 import TreeNode from './node';
 import defaultDecorators from './decorators';
 import defaultTheme from '../themes/default';
-import defaultAnimations from '../themes/animations';
 
 class TreeBeard extends React.Component {
     constructor(props){
@@ -32,7 +31,6 @@ class TreeBeard extends React.Component {
                         node={node}
                         onClick={this.props.onClick}
                         onToggle={this.props.onToggle}
-                        animations={this.props.animations}
                         decorators={this.props.decorators}
                         style={this.style.tree.node}
                     />
@@ -48,10 +46,6 @@ TreeBeard.propTypes = {
         React.PropTypes.object,
         React.PropTypes.array
     ]).isRequired,
-    animations: React.PropTypes.oneOfType([
-        React.PropTypes.object,
-        React.PropTypes.bool
-    ]),
     onClick: React.PropTypes.func,
     onToggle: React.PropTypes.func,
     decorators: React.PropTypes.object
@@ -59,7 +53,6 @@ TreeBeard.propTypes = {
 
 TreeBeard.defaultProps = {
     style: defaultTheme,
-    animations: defaultAnimations,
     decorators: defaultDecorators
 };
 
